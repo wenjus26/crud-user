@@ -1,0 +1,66 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Utilisateurs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>CRUD Utilisateurs</h1>
+    <div class="container">
+        <h2>Ajouter un utilisateur</h2>
+        <form id="addUserForm">
+            <label for="first_name">Prénom:</label>
+            <input type="text" id="first_name" name="first_name"><br><br>
+            <label for="last_name">Nom de famille:</label>
+            <input type="text" id="last_name" name="last_name"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+            <button type="button" onclick="addUser()">Ajouter</button>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Mettre à jour un utilisateur</h2>
+        <form id="updateUserForm">
+            <label for="user_id_update">ID de l'utilisateur à mettre à jour:</label>
+            <input type="number" id="user_id_update" name="user_id_update" min="1"><br><br>
+            <label for="updated_first_name">Nouveau prénom:</label>
+            <input type="text" id="updated_first_name" name="updated_first_name"><br><br>
+            <label for="updated_last_name">Nouveau nom de famille:</label>
+            <input type="text" id="updated_last_name" name="updated_last_name"><br><br>
+            <label for="updated_email">Nouvel email:</label>
+            <input type="email" id="updated_email" name="updated_email"><br><br>
+            <button type="button" onclick="updateUser()">Mettre à jour</button>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Supprimer un utilisateur</h2>
+        <form id="deleteUserForm">
+            <label for="user_id_delete">ID de l'utilisateur à supprimer:</label>
+            <input type="number" id="user_id_delete" name="user_id_delete" min="1"><br><br>
+            <button type="button" onclick="deleteUser()">Supprimer</button>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Liste des utilisateurs</h2>
+        <table id="user_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prénom</th>
+                    <th>Nom de famille</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="container">
+        <button type="button" onclick="generateExcel()">Générer Excel</button>
+        <a id="excel_link" style="display: none;"></a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
