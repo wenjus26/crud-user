@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add User</title>
+    <title>Ajouter un utilisateur</title>
 </head>
 <body>
-    <h1>Add User</h1>
+    <h1>Ajouter un utilisateur</h1>
     <form method="POST">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.label(for="username") }} {{ form.username }}
-        </div>
-        <div>
-            {{ form.submit }}
-        </div>
+        <p>
+            {{ form.username.label }}
+            {{ form.username }}
+        </p>
+        <p>{{ form.submit() }}</p>
     </form>
+    <a href="/">Retour à la liste des utilisateurs</a>
 </body>
 </html>

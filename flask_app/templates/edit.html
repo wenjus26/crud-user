@@ -5,14 +5,12 @@
 </head>
 <body>
     <h1>Edit User</h1>
-    <form method="POST">
+    <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.label(for="username") }} {{ form.username }}
-        </div>
-        <div>
-            {{ form.submit }}
-        </div>
+        {{ form.username.label }} {{ form.username(size=20) }}
+        <br><br>
+        {{ form.submit() }}
     </form>
+    <a href="{{ url_for('index') }}">Back to User List</a>
 </body>
 </html>

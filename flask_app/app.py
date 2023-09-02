@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -30,30 +31,24 @@ def add_user():
         user = User(username=username)
         db.session.add(user)
         db.session.commit()
-        flash('User added successfully!', 'success')
-        return redirect(url_for('index'))
+        return "User added successfully!"
     return render_template('add_user.html', form=form)
 
-@app.route('/edit_user/<int:id>', methods=['GET', 'POST'])
-def edit_user(id):
-    user = User.query.get(id)
-    form = UserForm()
-    if form.validate_on_submit():
-        user.username = form.username.data
-        db.session.commit()
-        flash('User updated successfully!', 'success')
-        return redirect(url_for('index'))
-    form.username.data = user.username
-    return render_template('edit_user.html', form=form, user=user)
+@app.route('/get_user/<username>')
+def get_user(username):
+    user = User.query.filter_by(username=username).first()
+    if user:
+        return jsonify({'username': user.username})
+    else:
+        return jsonify({'error': 'User not found'}), 404
 
-@app.route('/delete_user/<int:id>', methods=['GET', 'POST'])
-def delete_user(id):
-    user = User.query.get(id)
-    db.session.delete(user)
-    db.session.commit()
-    flash('User deleted successfully!', 'success')
-    return redirect(url_for('index'))
+@app.route('/get_all_users')
+def get_all_users():
+    users = User.query.all()
+    user_list = [{'username': user.username} for user in users]
+    return jsonify(user_list)
 
 if __name__ == '__main__':
-    db.create_all()
+    if not os.path.exists('users.db'):
+        db.create_all()
     app.run(debug=True)
