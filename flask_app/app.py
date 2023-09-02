@@ -49,6 +49,7 @@ def get_all_users():
     return jsonify(user_list)
 
 if __name__ == '__main__':
-    if not os.path.exists('users.db'):
-        db.create_all()
+    with app.app_context():  # Ajoutez cette ligne pour créer un contexte d'application
+        if not os.path.exists('users.db'):
+            db.create_all()
     app.run(debug=True)
